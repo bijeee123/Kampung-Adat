@@ -1,0 +1,379 @@
+<html lang="id">
+ <head>
+  <meta charset="UTF-8"/>
+  <meta content="width=device-width, initial-scale=1.0"/>
+  <title>
+   Kampung Adat Cireundeu
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   html {
+      scroll-behavior: smooth;
+   }
+   body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8;
+    transition: background 0.5s ease-in-out;
+   }
+   header {
+    background: rgba(0, 95, 99, 0.9);
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    transition: background 0.5s, transform 0.3s ease-in-out;
+   }
+   header.scrolled {
+    background: rgba(0, 63, 67, 0.95);
+    transform: translateY(-3px);
+   }
+   nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   }
+   nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+   }
+   nav ul li {
+    display: inline;
+   }
+   nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background 0.5s ease-in-out;
+   }
+   nav ul li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+   }
+   .hero {
+    position: relative;
+    height: 100vh;
+    background: url('https://storage.googleapis.com/a1aa/image/wAoFFRj6Wp5PBJa9jC9nAUT0etnxVB2puevtHGvsYUo.jpg') no-repeat center center/cover;
+   }
+   .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+   }
+   .hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+   }
+   .hero-content h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+   }
+   .hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+   }
+   .content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background: white;
+    margin: 20px auto;
+    width: 80%;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+    border-radius: 20px;
+   }
+   .content img {
+    width: 40%;
+    border-radius: 20px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.5s ease-in-out;
+   }
+   .content img:hover {
+    transform: scale(1.1);
+   }
+   .text {
+    width: 55%;
+    animation: fadeIn 1.5s ease-in-out;
+   }
+   .content:nth-child(even) {
+    flex-direction: row-reverse;
+   }
+   .content.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+   }
+   .back-to-top,
+   .scroll-to-bottom {
+    position: fixed;
+    background: #007B7F;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+   }
+   .back-to-top {
+    bottom: 20px;
+    right: 20px;
+   }
+   .scroll-to-bottom {
+    bottom: 80px;
+    right: 20px;
+   }
+   .back-to-top:hover,
+   .scroll-to-bottom:hover {
+    background: #005F63;
+   }
+   footer {
+    text-align: center;
+    padding: 15px;
+    background: #007B7F;
+    color: white;
+    margin-top: 20px;
+    border-top: 5px solid #005F63;
+   }
+   @keyframes fadeIn {
+    from {
+     opacity: 0;
+     transform: translateY(20px);
+    }
+    to {
+     opacity: 1;
+     transform: translateY(0);
+    }
+   }
+  </style>
+  <script>
+   document.addEventListener("DOMContentLoaded", function () {
+    const header = document.querySelector("header");
+    window.addEventListener("scroll", function () {
+     if (window.scrollY > 50) {
+      header.classList.add("scrolled");
+      document.querySelector(".back-to-top").style.display = "block";
+     } else {
+      header.classList.remove("scrolled");
+      document.querySelector(".back-to-top").style.display = "none";
+     }
+    });
+
+    const sections = document.querySelectorAll(".content");
+    const observer = new IntersectionObserver(
+     (entries) => {
+      entries.forEach((entry) => {
+       if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+       }
+      });
+     },
+     { threshold: 0.5 }
+    );
+
+    sections.forEach((section) => {
+     observer.observe(section);
+    });
+
+    document.querySelector(".back-to-top").addEventListener("click", () => {
+     window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    document.querySelector(".scroll-to-bottom").addEventListener("click", () => {
+     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    });
+
+    let currentIndex = 0;
+    const images = document.querySelectorAll(".gallery img");
+    setInterval(() => {
+     images[currentIndex].style.display = "none";
+     currentIndex = (currentIndex + 1) % images.length;
+     images[currentIndex].style.display = "block";
+    }, 3000);
+   });
+  </script>
+ </head>
+ <body>
+  <header>
+   <div class="container mx-auto flex justify-between items-center px-4">
+    <h1 class="text-3xl font-bold">
+     Kampung Adat Cireundeu
+    </h1>
+    <nav>
+     <ul class="flex space-x-6">
+      <li>
+       <a class="hover:bg-green-800 px-3 py-2 rounded transition duration-300" href="#sejarah">
+        Sejarah
+       </a>
+      </li>
+      <li>
+       <a class="hover:bg-green-800 px-3 py-2 rounded transition duration-300" href="#lokasi">
+        Lokasi
+       </a>
+      </li>
+      <li>
+       <a class="hover:bg-green-800 px-3 py-2 rounded transition duration-300" href="#struktur">
+        Struktur
+       </a>
+      </li>
+      <li>
+       <a class="hover:bg-green-800 px-3 py-2 rounded transition duration-300" href="#upacara">
+        Upacara Adat
+       </a>
+      </li>
+      <li>
+       <a class="hover:bg-green-800 px-3 py-2 rounded transition duration-300" href="#fakta">
+        Fakta Unik
+       </a>
+      </li>
+     </ul>
+    </nav>
+   </div>
+  </header>
+  <section class="hero">
+   <div class="hero-content">
+    <h1>
+       Kampung Adat Cireundeu
+    </h1>
+    <p>
+     Menjaga Tradisi dan Budaya Sunda
+    </p>
+   </div>
+  </section>
+  <section class="content" id="sejarah">
+   <img alt="Sejarah Kampung Cireundeu" height="400" src="img/kampung adat.jpg" width="600"/>
+   <div class="text">
+    <h2 class="text-2xl font-bold mb-4">
+     Sejarah Singkat
+    </h2>
+    <p class="text-gray-700 leading-relaxed">
+      Kampung Adat Cireundeu aya di Kacamatan Cibiru, Kota Bandung, Jawa Barat. Kampung ieu dipikawanoh minangka salah sahiji kampung adat anu masih ngajaga tradisi jeung budaya Sunda. Sajarahna aya hubunganana sareng jalma-jalma anu cicing di daérah éta saprak jaman baheula, anu ngembangkeun sistem sosial sareng budaya anu has. Kampung ieu ogé dipikawanoh ku upacara adat jeung cara hirup masarakatna anu masih kénéh kuat ku ajén-inajén tradisi.
+    </p>
+   </div>
+  </section>
+  <section class="content" id="lokasi">
+   <img alt="Lokasi Kampung Cireundeu" height="400" src="img/lokasi kampung.jpg" width="600"/>
+   <div class="text">
+    <h2 class="text-2xl font-bold mb-4">
+     Lokasi
+    </h2>
+    <p class="text-gray-700 leading-relaxed">
+      Kampung Adat Cireundeu aya di Kacamatan Cibiru, Kota Bandung, Jawa Barat, Indonésia. Lokasina anu strategis sareng dikurilingan ku alam anu éndah ngajantenkeun tempat anu pikaresepeun.
+    </p>
+   </div>
+  </section>
+  <section class="content" id="struktur">
+   <img alt="Struktur Organisasi" height="400" src="img/struktur.jpg" width="600"/>
+   <div class="text">
+    <h2 class="text-2xl font-bold mb-4">
+     Struktur Organisasi
+    </h2>
+    <p class="text-gray-700 leading-relaxed">
+      Struktur organisasi di Kampung Adat Cireundeu biasana diwangun ku:
+
+      Pamimpin Tradisional: Pamimpin anu tanggung jawab ngalaksanakeun adat sareng tradisi.
+      Déwan Tradisional: Sakelompok jalma anu mantuan pamingpin adat dina nyieun kaputusan sarta ngalaksanakeun upacara adat.
+      Masarakat: Warga désa anu kalibet dina kagiatan adat jeung sosial.
+      
+      Ngaran Pamimpin Tradisional jeung Mentri
+<br>
+<br>
+Pamimpin Adat: Dina konteks Kampung Adat Cireundeu, pamingpin adat sok disebut "Panghulu" atawa "Kapala Adat".
+Mentri: Aya sababaraha jabatan anu mantuan pamingpin adat, saperti "Sekertaris Adat" jeung "Bendahara Adat".
+<br>
+<br>
+Ngaran Imah atawa Gedong Désa
+Wangunan di Kampung Adat Cireundeu umumna diwangun ku imah adat anu disebut "Imah" atawa "Imah Adat". Imah-imah ieu biasana diwangun ku bahan-bahan alami sareng gaduh desain anu ngagambarkeun budaya Sunda.
+<br>
+<br>
+Jumlah Wangunan
+Jumlah wangunan di Kampung Adat Cireundeu rupa-rupa, tapi umumna aya puluhan imah adat anu masih dicicingan ku masarakat. Jumlah pastina bisa ngarobah kana waktu.
+<br>
+<br>
+Aturan Désa / Pasipatan
+Aturan atawa adat istiadat di Kampung Adat Cireundeu ngawengku:
+
+Ngalaksanakeun upacara adat sacara rutin.
+Hormat ka karuhun jeung tradisi.
+Kawajiban ngajaga kabersihan jeung kaéndahan désa.
+Larangan ngalaksanakeun tindakan anu ngaruksak lingkungan atawa tradisi.
+
+    </p>
+   </div>
+  </section>
+  <section class="content" id="upacara">
+   <img alt="Upacara Adat" height="400" src="img/upacara adat.jpg" width="600"/>
+   <div class="text">
+    <h2 class="text-2xl font-bold mb-4">
+     Upacara Adat
+    </h2>
+    <ul class="list-disc list-inside text-gray-700 leading-relaxed">
+     <li>
+      Upacara Seren Taun : Upacara syukuran hasil panen.
+     </li>
+     <li>
+      Upacara Ruwatan : Upacara ngabersihkeun diri tina hal-hal nu negatif.
+     </li>
+     <li>
+      Upacara Adat Kawinan: Ngalaksanakeun pernikahan ngagunakeun tradisi Sunda.
+abdi. Agama/Kayakinan Diturutan
+     </li>
+    </ul>
+   </div>
+  </section>
+  <section class="content" id="fakta">
+   <img alt="Fakta Unik" height="400" src="img/fakta unik.jpg" width="600"/>
+   <div class="text">
+    <h2 class="text-2xl font-bold mb-4">
+     Fakta Unik
+    </h2>
+    <p class="text-gray-700 leading-relaxed">
+      Masarakat Kampung Adat Cireundeu umumna ngagem agama Islam, tapi ogé ngajaga kayakinan jeung tradisi lokal nu geus lila aya.
+      <br>
+      <br>
+      Fakta Unik ngeunaan Kampung Adat
+Kearifan Lokal: Kampung Adat Cireundeu dipikawanoh ku kearifan lokalna dina ngokolakeun sumber daya alam jeung ngajaga lingkungan.
+Ngalestarikeun Kabudayaan: Masarakat di ieu désa bener-bener ngajaga tradisi jeung budaya Sunda, diantarana basa, seni jeung upacara adat.
+Masarakat Padet: Masarakat Cireundeu kakoncara pisan ngahiji jeung silih tulungan dina sagala rupa kagiatan, boh sosial boh kabudayaan.
+    </p>
+   </div>
+  </section>
+  <div class="back-to-top">
+   <i class="fas fa-arrow-up">
+   </i>
+  </div>
+  <div class="scroll-to-bottom">
+   <i class="fas fa-arrow-down">
+   </i>
+  </div>
+  <footer>
+   <p>
+    ©2025 Kampung Adat Cireundeu. Sadaya hak dilindungi.
+    <br>
+    Abizar Adnan Cahya PPLG X-4 12410136 Cibedug 2
+   </p>
+  </footer>
+ </body>
+</html>
